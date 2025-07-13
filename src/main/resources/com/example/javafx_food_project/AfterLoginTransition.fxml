@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane fx:id="mainStack" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx_food_project.AfterLoginTransitionController">
+   <children>
+      <ImageView fx:id="transitionImage" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</StackPane>

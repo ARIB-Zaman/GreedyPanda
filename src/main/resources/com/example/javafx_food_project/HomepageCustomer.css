@@ -1,0 +1,48 @@
+.root{
+    -fx-font-family: "moco Sans Regular";
+    -fx-font-size: 14px;
+}
+
+.list-view .scroll-bar:vertical {
+    -fx-background-color: transparent; /* Entire scrollbar background */
+    -fx-padding: 0;
+}
+
+
+.list-view .scroll-bar:vertical .increment-button,
+.list-view .scroll-bar:vertical .decrement-button {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-shape: "";
+}
+
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-min-height: 5px;
+}
+.list-view .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.5); /* more opaque on hover */
+}
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-transition: all 0.3s ease;
+       -fx-background-radius: 20;
+        -fx-border-radius: 20;
+}
+.list-cell:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.07);
+}
+.list-cell:filled:selected {
+    -fx-background-color: rgba(255, 255, 255, 0.13);
+    -fx-text-fill: white;
+}
+#foodCategoryListView {
+    -fx-background-color: transparent;
+}
+
+#foodCategoryListView .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-max-width: 0;
+}

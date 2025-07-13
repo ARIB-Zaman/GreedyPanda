@@ -3,21 +3,34 @@ import com.example.javafx_food_project.user_classes.*;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class Restaurant {
-    String restaurant_name;
-    int restaurantUniqeID;
-    RestaurantManager restaurantManager;
-    String restaurant_location;
-    Rating rate;
-    LocalTime openingTime;
-    LocalTime closingTime;
-    String SalesHistory;
+    public String restaurant_name;
+    public int restaurantUniqeID;
+    public RestaurantManager restaurantManager;
+    public String restaurant_location;
+    public Rating rate;
+    public LocalTime openingTime;
+    public LocalTime closingTime;
+    public String SalesHistory;
 
     public Restaurant(String restaurant_name, RestaurantManager restaurantManager){
         this.restaurant_name = restaurant_name;
         this.restaurantManager = restaurantManager;
         rate = new Rating();
+    }
+    public Restaurant(String restaurant_name, RestaurantManager restaurantManager, int totalRating, double rating){
+        this.restaurant_name = restaurant_name;
+        this.restaurantManager = restaurantManager;
+        rate = new Rating(totalRating, rating);
+    }
+    public Restaurant(String restaurant_name, int totalRating, double rating, String openingTime, String closingTime){
+        this.restaurant_name = restaurant_name;
+        rate = new Rating(totalRating, rating);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.US);
+        this.openingTime =  LocalTime.parse(openingTime, formatter);
+        this.closingTime =  LocalTime.parse(closingTime, formatter);
     }
 
     public void setOpenClosetime(LocalTime opening, LocalTime closing){

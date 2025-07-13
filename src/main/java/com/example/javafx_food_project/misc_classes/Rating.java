@@ -1,8 +1,8 @@
 package com.example.javafx_food_project.misc_classes;
 
 public class Rating {
-    int totalRating;
-    double rating;
+    public int totalRating;
+    public double rating;
     public Rating(){
         totalRating = 0;
         rating = 0;

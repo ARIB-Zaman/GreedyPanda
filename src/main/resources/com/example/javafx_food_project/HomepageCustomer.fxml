@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@HomepageCustomer.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx_food_project.HomepageCustomerController">
+   <children>
+      <ImageView fx:id="bgimageview2" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true" />
+      <Pane fx:id="pane1" layoutX="700.0" layoutY="20.0" prefHeight="230.0" prefWidth="552.0" />
+      <Pane fx:id="pane2" layoutX="700.0" layoutY="262.0" prefHeight="434.0" prefWidth="552.0" />
+      <ListView fx:id="restListView" layoutX="725.0" layoutY="268.0" prefHeight="417.0" prefWidth="503.0" />
+      <ImageView fx:id="Accountinfoimgview" fitHeight="720.0" fitWidth="300.0" layoutX="-300.0" pickOnBounds="true" preserveRatio="true" />
+      <Pane fx:id="accountinfopane" layoutX="-300.0" prefHeight="720.0" prefWidth="300.0" />
+      <Button fx:id="accountinfobutton" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#onAccountInfoButoonClick" onMouseEntered="#onHoverAccountInfoButton" onMouseExited="#onMouseLeaveAccountInfoButton" prefHeight="50.0" prefWidth="50.0" />
+      <ListView fx:id="foodCategoryListView" layoutX="725.0" layoutY="128.0" orientation="HORIZONTAL" prefHeight="100.0" prefWidth="503.0" />
+   </children>
+</AnchorPane>
