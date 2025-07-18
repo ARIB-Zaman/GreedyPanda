@@ -1,5 +1,6 @@
 package com.example.javafx_food_project;
 
+import com.example.javafx_food_project.Communication.ClientManager;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.event.ActionEvent;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.javafx_food_project.LoginPage.currentScene;
+import static com.example.javafx_food_project.LoginPage.cusClient;
 
 
 public class LoginPage_Controller {
@@ -65,57 +67,15 @@ public class LoginPage_Controller {
     @FXML
     private Label error_msg_box;
 
-    private void preloadFrames() {
-        for (int i = 1; i <= 50; i++) {
-            String frameName = String.format("/bgframes1/bg%04d.jpg", i);
-            try {
-                Image image = new Image(getClass().getResource(frameName).toExternalForm());
-                frames.add(image);
-            } catch (Exception e) {
-                System.err.println("Could not preload: " + frameName);
-            }
-        }
-    }
-    private void updateFrame() {
-        if (!frames.isEmpty() && currentScene.equals("LoginPage")) {
-            try{
-
-            bgimageview.setImage(frames.get(currentFrame));
-            Image blr = cropAndBlurImage(frames.get(currentFrame), glasspane, 25);
-            glassview.setImage(blr);
-            } catch (Exception e) {}
-
-            currentFrame = ((currentFrame+1)%50)+1;
-        }
-    }
     public void initialize(){
-        Font.loadFont(getClass().getResourceAsStream("/fonts/mocoSans-Black.otf"), 12);
-        preloadFrames();
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(42), e -> updateFrame())); // 24 FPS
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-        try {
-            applyGlassStyle(glasspane, 30, 0, 0.1, 255, 0.2, 10);
-            applyGlassStyle(submitbutton, 30, 0, 0.1, 0, 0.1, 3);
-            boundImageInAPane(glassview, glasspane, 30);
-        } catch (Exception e) {}
-        //user_name_field.setOpacity(0.4);
-        //passwordField.setOpacity(0.4);
-        BackgroundFill fill = new BackgroundFill(
-                Color.rgb(255, 255, 255, 0.3), // semi-transparent white
-                new CornerRadii(15),
-                Insets.EMPTY
-        );
-        user_name_field.setBackground(new Background(fill));
-        passwordField.setBackground(new Background(fill));
-        usertype.setFont(Font.loadFont(getClass().getResourceAsStream("/fonts/mocoSans-Black.otf"), 30));
-        password_lable.setFont(Font.loadFont(getClass().getResourceAsStream("/fonts/mocoSans-Black.otf"), 30));
+        styleAll();
     }
+
     @FXML
     protected void onSubmitButtonClick(ActionEvent event) throws IOException {
         String userName = user_name_field.getText();
         String password = passwordField.getText();
-        if(HandleDatabase.verifyCustomer(userName, password)) switchToHomepageCustomer(event);
+        if(cusClient.verifyLogin(userName, password)) switchToHomepageCustomer(event);
         else  error_msg_box.setText("Incorrect username or password");
     }
     @FXML
@@ -134,6 +94,30 @@ public class LoginPage_Controller {
         stage.setScene(scene);
         stage.show();
         currentScene = "AfterLoginTransition";
+    }
+
+    private void preloadFrames() {
+        for (int i = 1; i <= 50; i++) {
+            String frameName = String.format("/bgframes1/bg%04d.jpg", i);
+            try {
+                Image image = new Image(getClass().getResource(frameName).toExternalForm());
+                frames.add(image);
+            } catch (Exception e) {
+                System.err.println("Could not preload: " + frameName);
+            }
+        }
+    }
+    private void updateFrame() {
+        if (!frames.isEmpty() && currentScene.equals("LoginPage")) {
+            try{
+
+                bgimageview.setImage(frames.get(currentFrame));
+                Image blr = cropAndBlurImage(frames.get(currentFrame), glasspane, 25);
+                glassview.setImage(blr);
+            } catch (Exception e) {}
+
+            currentFrame = ((currentFrame+1)%50)+1;
+        }
     }
     public static Image cropAndBlurImage(
             Image sourceImage,
@@ -281,4 +265,29 @@ public class LoginPage_Controller {
             }
         });
     }
+    @FXML
+    private void styleAll(){
+        Font.loadFont(getClass().getResourceAsStream("/fonts/mocoSans-Black.otf"), 12);
+        preloadFrames();
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(42), e -> updateFrame())); // 24 FPS
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+        try {
+            applyGlassStyle(glasspane, 30, 0, 0.1, 255, 0.2, 3);
+            applyGlassStyle(submitbutton, 30, 0, 0.1, 0, 0.1, 3);
+            boundImageInAPane(glassview, glasspane, 30);
+        } catch (Exception e) {}
+        //user_name_field.setOpacity(0.4);
+        //passwordField.setOpacity(0.4);
+        BackgroundFill fill = new BackgroundFill(
+                Color.rgb(255, 255, 255, 0.3), // semi-transparent white
+                new CornerRadii(15),
+                Insets.EMPTY
+        );
+        user_name_field.setBackground(new Background(fill));
+        passwordField.setBackground(new Background(fill));
+        usertype.setFont(Font.loadFont(getClass().getResourceAsStream("/fonts/mocoSans-Black.otf"), 30));
+        password_lable.setFont(Font.loadFont(getClass().getResourceAsStream("/fonts/mocoSans-Black.otf"), 30));
+    }
 }
+

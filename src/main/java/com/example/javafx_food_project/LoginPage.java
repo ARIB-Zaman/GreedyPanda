@@ -1,5 +1,6 @@
 package com.example.javafx_food_project;
 
+import com.example.javafx_food_project.Communication.ClientManager;
 import com.example.javafx_food_project.misc_classes.Restaurant;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,8 +12,10 @@ import java.io.IOException;
 import java.util.List;
 
 public class LoginPage extends Application {
-    public static String currentScene = "LoginPage";
+    public static String currentScene = "IntroPage";
     //public static String currentScene = "HomepageCustomer";
+    public static ClientManager cusClient;
+
     public static List<Restaurant> restaurants = HandleDatabase.makeRestaurantList();
     public static List<Image> transitionFramesFromLoginToCusHomepage;
     @Override

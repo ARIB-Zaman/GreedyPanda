@@ -180,7 +180,7 @@ public class HomepageCustomerController {
                 if (empty || restaurant == null) {
                     setGraphic(null);
                 } else {
-                    logoView.setImage(new Image("file:" + "C:/Users/MArib/OneDrive/Desktop/TOTIlogo copy.png"));
+                    logoView.setImage(new Image("file:" + "C:/Users/MArib/OneDrive/Desktop/image.png"));
                     nameLabel.setText(restaurant.restaurant_name);
                     ratingLabel.setText(String.valueOf(restaurant.rate.rating));
                     setGraphic(new VBox(content, separator));
