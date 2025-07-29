@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LoginPage extends Application {
@@ -16,7 +17,7 @@ public class LoginPage extends Application {
     //public static String currentScene = "HomepageCustomer";
     public static ClientManager cusClient;
 
-    public static List<Restaurant> restaurants = HandleDatabase.makeRestaurantList();
+    public static List<Restaurant> restaurants = new ArrayList<>();
     public static List<Image> transitionFramesFromLoginToCusHomepage;
     @Override
     public void start(Stage stage) throws IOException {
@@ -29,6 +30,7 @@ public class LoginPage extends Application {
 
     public static void main(String[] args) {
         launch();
+
     }
 
 

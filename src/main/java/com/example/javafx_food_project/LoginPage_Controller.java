@@ -130,29 +130,75 @@ public class LoginPage_Controller {
         double cropWidth = targetPane.getWidth();
         double cropHeight = targetPane.getHeight();
         // 1. Crop the region using PixelReader
-        PixelReader reader = sourceImage.getPixelReader();
-        if (reader == null) return null;
+        try {
 
-        WritableImage cropped = new WritableImage(reader,
-                (int) cropX, (int) cropY,
-                (int) cropWidth, (int) cropHeight);
 
-        // 2. Wrap in ImageView and apply GaussianBlur
-        ImageView imageView = new ImageView(cropped);
-        imageView.setFitWidth(cropWidth);
-        imageView.setFitHeight(cropHeight);
-        imageView.setPreserveRatio(false);
-        imageView.setEffect(new GaussianBlur(blurRadius));
+            PixelReader reader = sourceImage.getPixelReader();
+            if (reader == null) return null;
 
-        // 3. Snapshot the blurred result and return
-        SnapshotParameters params = new SnapshotParameters();
-        params.setFill(Color.TRANSPARENT);
-        params.setViewport(new Rectangle2D(0, 0, cropWidth, cropHeight));
+            WritableImage cropped = new WritableImage(reader,
+                    (int) cropX, (int) cropY,
+                    (int) cropWidth, (int) cropHeight);
 
-        WritableImage blurredImage = new WritableImage((int) cropWidth, (int) cropHeight);
-        imageView.snapshot(params, blurredImage);
+            // 2. Wrap in ImageView and apply GaussianBlur
+            ImageView imageView = new ImageView(cropped);
+            imageView.setFitWidth(cropWidth);
+            imageView.setFitHeight(cropHeight);
+            imageView.setPreserveRatio(false);
+            imageView.setEffect(new GaussianBlur(blurRadius));
 
-        return blurredImage;
+            // 3. Snapshot the blurred result and return
+            SnapshotParameters params = new SnapshotParameters();
+            params.setFill(Color.TRANSPARENT);
+            params.setViewport(new Rectangle2D(0, 0, cropWidth, cropHeight));
+
+            WritableImage blurredImage = new WritableImage((int) cropWidth, (int) cropHeight);
+            imageView.snapshot(params, blurredImage);
+
+            return blurredImage;
+        } catch (Exception e) {
+            return new Image("");
+        }
+    }
+    public static Image cropAndBlurImage2(
+            Image sourceImage,
+            Pane targetPane,
+            double blurRadius
+    ) {
+
+        double cropX = targetPane.getLayoutX();
+        double cropY = targetPane.getLayoutY();
+        double cropWidth = targetPane.getWidth();
+        double cropHeight = targetPane.getHeight();
+        // 1. Crop the region using PixelReader
+        try {
+
+            PixelReader reader = sourceImage.getPixelReader();
+            if (reader == null) return null;
+
+            WritableImage cropped = new WritableImage(reader,
+                    (int) cropX, (int) cropY,
+                    (int) cropWidth, (int) cropHeight);
+
+            // 2. Wrap in ImageView and apply GaussianBlur
+            ImageView imageView = new ImageView(cropped);
+            imageView.setFitWidth(cropWidth);
+            imageView.setFitHeight(cropHeight);
+            imageView.setPreserveRatio(false);
+            imageView.setEffect(new GaussianBlur(blurRadius));
+
+            // 3. Snapshot the blurred result and return
+            SnapshotParameters params = new SnapshotParameters();
+            params.setFill(Color.TRANSPARENT);
+            params.setViewport(new Rectangle2D(0, 0, cropWidth, cropHeight));
+
+            WritableImage blurredImage = new WritableImage((int) cropWidth, (int) cropHeight);
+            imageView.snapshot(params, blurredImage);
+
+            return blurredImage;
+        } catch (Exception e) {
+            return sourceImage;
+        }
     }
     public static void applyGlassStyle(
             Pane glassPane,
@@ -183,6 +229,8 @@ public class LoginPage_Controller {
         borderRect.setMouseTransparent(true);
         borderRect.setX(glassPane.getLayoutX()+ (strokeWidth / 2.0));
         borderRect.setY(glassPane.getLayoutY()+ (strokeWidth / 2.0));
+
+
 
         // Add to parent
         if (glassPane.getParent() instanceof Pane parent) {

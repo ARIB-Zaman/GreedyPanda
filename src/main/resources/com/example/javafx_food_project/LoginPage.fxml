@@ -37,7 +37,7 @@
       </Label>
       <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="520.0" layoutY="383.0" maxWidth="240.0" prefHeight="26.0" prefWidth="240.0" />
       <Label fx:id="error_msg_box" alignment="CENTER" layoutX="520.0" layoutY="430.0" prefHeight="18.0" prefWidth="240.0" />
-      <Button fx:id="submitbutton" layoutX="570.0" layoutY="475.0" mnemonicParsing="false" onAction="#onSubmitButtonClick" onMouseEntered="#onMouseEnterSubmitButton" onMouseExited="#onMouseExitSubmitButton" prefHeight="60.0" prefWidth="140.0" text="Submit">
+      <Button fx:id="submitbutton" defaultButton="true" layoutX="570.0" layoutY="475.0" mnemonicParsing="false" onAction="#onSubmitButtonClick" onMouseEntered="#onMouseEnterSubmitButton" onMouseExited="#onMouseExitSubmitButton" prefHeight="60.0" prefWidth="140.0" text="Submit">
          <font>
             <Font size="20.0" />
          </font>

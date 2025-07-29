@@ -15,7 +15,7 @@
          </font>
       </Label>
       <Button fx:id="customerLoginButton" layoutX="544.0" layoutY="322.0" mnemonicParsing="false" onAction="#onCustomerLoginButtonClick" prefHeight="91.0" prefWidth="214.0" text="Login" />
-      <Button fx:id="customerSignupButoon" layoutX="543.0" layoutY="453.0" mnemonicParsing="false" prefHeight="91.0" prefWidth="214.0" text="Sign up" />
+      <Button fx:id="customerSignupButoon" layoutX="543.0" layoutY="453.0" mnemonicParsing="false" onAction="#onCustomerSignupButtonClick" prefHeight="91.0" prefWidth="214.0" text="Sign up" />
       <Button fx:id="restaruantOwnerButton" layoutX="550.0" layoutY="589.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="206.0" text="Open Restaurant" />
    </children>
 </AnchorPane>

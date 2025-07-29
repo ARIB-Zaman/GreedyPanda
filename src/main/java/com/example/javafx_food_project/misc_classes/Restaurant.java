@@ -1,11 +1,12 @@
 package com.example.javafx_food_project.misc_classes;
 import com.example.javafx_food_project.user_classes.*;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class Restaurant {
+public class Restaurant implements Serializable {
     public String restaurant_name;
     public int restaurantUniqeID;
     public RestaurantManager restaurantManager;
@@ -27,6 +28,14 @@ public class Restaurant {
     }
     public Restaurant(String restaurant_name, int totalRating, double rating, String openingTime, String closingTime){
         this.restaurant_name = restaurant_name;
+        rate = new Rating(totalRating, rating);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.US);
+        this.openingTime =  LocalTime.parse(openingTime, formatter);
+        this.closingTime =  LocalTime.parse(closingTime, formatter);
+    }
+    public Restaurant(String restaurant_name,int id, int totalRating, double rating, String openingTime, String closingTime){
+        this.restaurant_name = restaurant_name;
+        this.restaurantUniqeID = id;
         rate = new Rating(totalRating, rating);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.US);
         this.openingTime =  LocalTime.parse(openingTime, formatter);

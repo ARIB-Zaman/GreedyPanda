@@ -1,6 +1,8 @@
 package com.example.javafx_food_project.misc_classes;
 
-public class Rating {
+import java.io.Serializable;
+
+public class Rating implements Serializable {
     public int totalRating;
     public double rating;
     public Rating(){

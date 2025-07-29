@@ -1,5 +1,6 @@
 package com.example.javafx_food_project;
 
+import com.example.javafx_food_project.misc_classes.FoodItem;
 import com.example.javafx_food_project.misc_classes.Restaurant;
 
 import java.sql.Connection;
@@ -125,7 +126,7 @@ public class HandleDatabase {
             System.out.println("Database error: " + e.getMessage());
         }
     }
-    static public void addToGlobalFoodTable(String name, String imgpath, int totalrating, double rating, int restaurant_id, double price, String tag, int calories){
+    static public void addToGlobalFoodTable(String name, String imgpath, int totalrating, double rating, int restaurant_id, double price, String tag){
         String url = "jdbc:sqlite:Database.db";
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
@@ -147,8 +148,9 @@ public class HandleDatabase {
 
                 conn.createStatement().execute(createTable);
                 String insertCusInfo = "INSERT INTO Food(name, img_path, totalrating, rating, restaurant_id, price, tag, calories) "+
-                                                            "VALUES ('"+name+"','"+imgpath+"',"+totalrating+","+rating+","+restaurant_id+","+price+",'"+tag+"',"+calories+")";
+                                                            "VALUES ('"+name+"','"+imgpath+"',"+totalrating+","+rating+","+restaurant_id+","+price+",'"+tag+"',"+ 0 +")";
                 conn.createStatement().execute(insertCusInfo);
+                System.out.println("Food added: "+ name + ", img: " + imgpath);
             }
         } catch (SQLException e) {
             System.out.println("Database error: " + e.getMessage());
@@ -290,7 +292,6 @@ public class HandleDatabase {
         String url = "jdbc:sqlite:Database.db";
         try (Connection conn = DriverManager.getConnection(url)){
 
-            // UNSAFE: Concatenating strings directly into SQL
             String query = "SELECT 1 FROM Customer WHERE name = '" + name +
                     "' AND password = '" + pass + "'";
 
@@ -309,18 +310,19 @@ public class HandleDatabase {
         try {
             Connection conn = DriverManager.getConnection(url);
             //Statement stmt = conn.createStatement();
-            ResultSet rs = conn.createStatement().executeQuery("SELECT name, totalrating, rating, openingtime, closingtime FROM Restaurant");
+            ResultSet rs = conn.createStatement().executeQuery("SELECT name, id, totalrating, rating, openingtime, closingtime FROM Restaurant");
 
             System.out.println("Connected to database");
 
             while (rs.next()) {
                 String name = rs.getString("name");
+                int id = rs.getInt("id");
                 int totalRating = rs.getInt("totalrating");
                 double rating = rs.getDouble("rating");
                 String openingTime = rs.getString("openingtime");
                 String closingTime = rs.getString("closingtime");
 
-                Restaurant restaurant = new Restaurant(name, totalRating, rating, openingTime, closingTime);
+                Restaurant restaurant = new Restaurant(name, id, totalRating, rating, openingTime, closingTime);
                 restaurants.add(restaurant);
             }
         } catch (SQLException e) {
@@ -334,4 +336,77 @@ public class HandleDatabase {
         return restaurants;
     }
 
+
+    public static boolean validCusForSignup(String name, String email){
+        String url = "jdbc:sqlite:Database.db";
+        try (Connection conn = DriverManager.getConnection(url)){
+
+            String query = "SELECT 1 FROM Customer WHERE name = '" + name +
+                    "' OR email = '" + email + "'";
+
+            ResultSet rs = conn.createStatement().executeQuery(query);
+            return !rs.next(); // Returns true if a matching doesn't record exists
+
+        } catch (SQLException e) {
+            System.err.println("Database error: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static List<FoodItem> makeFoodItemListByCategory(String category){
+        List<FoodItem> foodList = new ArrayList<>();
+        String url = "jdbc:sqlite:Database.db";
+
+        try (Connection conn = DriverManager.getConnection(url)) {
+            if (conn != null) {
+                String query = "SELECT name, img_path, price, totalrating, rating FROM Food WHERE tag = '" + category + "'";
+
+                ResultSet rs = conn.createStatement().executeQuery(query);
+                while (rs.next()) {
+                    String name = rs.getString("name");
+                    String imgPath = rs.getString("img_path");
+                    double price = rs.getDouble("price");
+                    int totalRating = rs.getInt("totalrating");
+                    double rating = rs.getDouble("rating");
+
+                    FoodItem food = new FoodItem(name, imgPath, price, totalRating, rating);
+                    foodList.add(food);
+                }
+
+                rs.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return foodList;
+    }
+    public static List<FoodItem> makeFoodItemListByRestID(int id){
+        List<FoodItem> foodList = new ArrayList<>();
+        String url = "jdbc:sqlite:Database.db";
+
+        try (Connection conn = DriverManager.getConnection(url)) {
+            if (conn != null) {
+                String query = "SELECT name, img_path, price, totalrating, rating FROM Food WHERE restaurant_id = " + id;
+
+                ResultSet rs = conn.createStatement().executeQuery(query);
+                while (rs.next()) {
+                    String name = rs.getString("name");
+                    String imgPath = rs.getString("img_path");
+                    double price = rs.getDouble("price");
+                    int totalRating = rs.getInt("totalrating");
+                    double rating = rs.getDouble("rating");
+
+                    FoodItem food = new FoodItem(name, imgPath, price, totalRating, rating);
+                    foodList.add(food);
+                }
+
+                rs.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return foodList;
+    }
 }

@@ -28,11 +28,16 @@
 .list-cell {
     -fx-background-color: transparent;
     -fx-transition: all 0.3s ease;
-       -fx-background-radius: 20;
-        -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
 }
 .list-cell:hover {
     -fx-background-color: rgba(255, 255, 255, 0.07);
+
+        -fx-scale-x: 1.02;
+        -fx-scale-y: 1.02;
+
+
 }
 .list-cell:filled:selected {
     -fx-background-color: rgba(255, 255, 255, 0.13);
@@ -45,4 +50,9 @@
 #foodCategoryListView .scroll-bar:horizontal {
     -fx-opacity: 0;
     -fx-max-width: 0;
+}
+
+#foodCategoryListView-cell:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
 }

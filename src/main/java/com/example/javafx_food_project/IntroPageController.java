@@ -22,16 +22,17 @@ public class IntroPageController {
     @FXML
     private Button customerLoginButton;
 
-    @FXML
-    private void onCustomerLoginButton(){
 
-    }
 
     public void onCustomerLoginButtonClick(ActionEvent e) throws IOException {
         cusClient = new ClientManager();
         switchToCustomerLoginScene(e);
-
     }
+    public void onCustomerSignupButtonClick(ActionEvent e) throws IOException {
+        cusClient = new ClientManager();
+        switchToCustomerSignupScene(e);
+    }
+
 
 
     public void switchToCustomerLoginScene(ActionEvent event) throws IOException {
@@ -41,6 +42,13 @@ public class IntroPageController {
         stage.setScene(scene);
         stage.show();
         currentScene = "LoginPage";
-
+    }
+    public void switchToCustomerSignupScene(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/com/example/javafx_food_project/CusSignupPage.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        currentScene = "CusSignupPage";
     }
 }

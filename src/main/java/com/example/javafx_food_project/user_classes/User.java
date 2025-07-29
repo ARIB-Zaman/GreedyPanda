@@ -1,6 +1,8 @@
 package com.example.javafx_food_project.user_classes;
 
-public abstract class User {
+import java.io.Serializable;
+
+public abstract class User implements Serializable {
     String username;
     String userEmail;
     int userID;
@@ -9,9 +11,5 @@ public abstract class User {
         this.username = name;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
-    }
-    public boolean verifyPasswordByUsername(String name, String pass){
-        if(this.username == name && this.userPassword == pass) return true;
-        return false;
     }
 }

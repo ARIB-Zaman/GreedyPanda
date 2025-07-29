@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import com.example.javafx_food_project.misc_classes.Restaurant;
+
 
 public class NetworkConnection {
     Socket socket;
@@ -27,7 +29,6 @@ public class NetworkConnection {
             oos.writeObject(obj);
         } catch (IOException ex) {
             System.out.println("Failed to write");
-            //throw ex;
         }
     }
 
